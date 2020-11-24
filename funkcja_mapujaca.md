@@ -20,14 +20,13 @@ Oczywiście da sie tak narysować pojedynczy prostokątny pas złożony z trójk
 
 ...ponumerujmy wierzchołki w jednym pasie...
 ![2](2.png)
-...i co dalej? Zwyczajnie zawińmy się na początek i radośnie powtórzmy powtórzmy procedurę. Cóż, jednak wtedy uzyskamy wielki brzydki trójkąt w poprzek całego pasa rozpoięty na wierzchołkach 7,8,9. Żaden problem. To zostawmy je sobie na końcu tak:
+...i co dalej? Zwyczajnie zawińmy się na początek i radośnie powtórzmy powtórzmy procedurę. Cóż, jednak wtedy uzyskamy wielki brzydki trójkąt w poprzek całego pasa rozpięty na wierzchołkach 7,8,9. Żaden problem. Przestawmy wierzchołki tak:
 ![3](siatka2.png)
-Zaraz, zaraz, ale nie pozbyliśmy się przeciez tego wielkiego trójkąta, tylko dodaliśmy właściwie dwa, o zerowej szerokości:
-Owszem, jak spróbujemy narysować jakąś niepłaską płasczyznę.
+Zaraz, zaraz, ale nie pozbyliśmy się przeciez tego wielkiego trójkąta, tylko dodaliśmy właściwie dwa, o zerowej szerokości!
+Owszem, jak spróbujemy narysować jakąś niepłaską płasczyznę, to rzeczywiście widać linie w poprzek.
 ![wf](wireframe.png)
-Rzeczywiście widac linie w poprzek. Ale mi była potrzebna pełna płaszczyzna :stuck_out_tongue:
+Ale mi była potrzebna pełna płaszczyzna :stuck_out_tongue: A jak sie okazuje `glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );` sprawia, że prymitywy o zerowej powierzchni w ogóle nie są rysowane.
 ![pelne](full_res.png)
-A jak sie okazuje `glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );` sprawia, że prymitywy o zerowej powierzchni w ogóle nie są rysowane.
 
 ### Właściwa funkcja
 mając to wszystko można napisać funkcję, na przykład taką:
@@ -44,3 +43,6 @@ vec2 poz2d(int n, int s)//nr wierzcholka, szerokosc siatki
     return vec2(x,y);
 }
 ```
+### Własności funkcji - jak uczyli na matematyce
+- Żeby narysować płaszczyznę n x n potrzeba 2(n^2-1) wierzchołków
+Nasza funkcja ma jednak ciekawszą właściwość. Jeśli zrobimy wywołanie rysowania jak na początku srtykułu, to możemy użyć `gl_VertexID` jako argumentu n, robiąc z tej funkcji jakby f. nie dwóch, a jednej zmiennej. W dodatku możemy rysować w ten sposób z pustym VertexArrayObject, bo dwie współrzędne wierzchołka mamy zapewnione, a trzecią możemy uzyskać też już w Shaderze (z tektury, albo jak u mnie bezpośrednoz wzoru funkcji).
