@@ -16,4 +16,4 @@ Triangles:  {0 1 2}
 (zob. [tu](https://www.khronos.org/opengl/wiki/Primitive))
 
 Oczywiście da sie tak narysować pojedynczy prostokątny pas złożony z trójkątów, ale całą płasczyznę? Ciężka sprawa, ale spróbjmy podejść do problemu w sposób łopatologiczny. Narysujmy sobie taką siatkę
-![1](/1.jpg)
+![1](/1.png)
