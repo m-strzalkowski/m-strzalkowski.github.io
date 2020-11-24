@@ -45,4 +45,4 @@ vec2 poz2d(int n, int s)//nr wierzcholka, szerokosc siatki
 ```
 ### Własności funkcji - jak uczyli na matematyce
 - Żeby narysować płaszczyznę n x n potrzeba 2(n^2-1) wierzchołków
-- Nasza funkcja ma jednak ciekawszą właściwość. Jeśli zrobimy wywołanie rysowania jak na początku srtykułu, to możemy użyć `gl_VertexID` jako argumentu n, robiąc z tej funkcji jakby f. nie dwóch, a jednej zmiennej. W dodatku możemy rysować w ten sposób z pustym VertexArrayObject, bo dwie współrzędne wierzchołka mamy zapewnione, a trzecią możemy uzyskać też już w Shaderze (z tektury, albo jak u mnie bezpośrednoz wzoru funkcji).
+- Nasza funkcja ma jednak ciekawszą właściwość. Jeśli zrobimy wywołanie rysowania jak na początku artykułu, to możemy użyć `gl_VertexID` jako argumentu n, robiąc z tej funkcji jakby f. nie dwóch, a jednej zmiennej. W dodatku możemy rysować w ten sposób z pustym VertexArrayObject, bo dwie współrzędne wierzchołka mamy zapewnione, a trzecią możemy uzyskać też już w Shaderze (z tektury, albo jak u mnie bezpośredno z wzoru funkcji).
