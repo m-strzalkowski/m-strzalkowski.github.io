@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizy danych oraz eksperymenty z prostymi perceptronami</title>
+    <style type="text/css">
+        body {
+        font-size: large;
+        }
+        section {
+            max-width:1100px;
+            padding-left: 2em;
+        }
+        td {padding: 0.25em;}
+      </style>
+</head>
+<body>
+    <h1>Raport z analizy danych oraz eksperymentów z prostymi perceptronami</h1>
+<section>
+    <h2>Analiza i przetwarzanie wstępne danych</h2>
+    <h3>Zakres analizy</h3>
+    <p>Do wstepnej analizy użyto danych z <a href="https://hydro.imgw.pl">hydro.imgw.pl</a> dla kilkunastu stacji na górnej Odrze:</p>
+    <table border="1">
+        <tr><td>C49180020</td><td> Łaziska - Olza zaraz za granica z Czechami</td></tr>
+        <tr><td>C49180010</td><td> po połączeniu Olzy z Odrą - Chałupki nad raciborskim zbiornikiem</td></tr>
+        <tr><td>C50180090</td><td> Tama na zbiorniku Racibórz Dolny</td></tr>
+        <tr><td>C50180070</td><td> Turze - rzeczka Ruda (przepływa przez Rybnik, Żory), zaraz przed wpadnięciem do Odry</td></tr>
+        <tr><td>C50180010</td><td> rzeczka Bierawka - zaraz przed wpadnięciem do Odry. Stacja bezposrednio pod zakładami azotowymi Kedzierzyn S.A.</td></tr>
+        <tr><td>C50180020</td><td> Gliwice Marina - w środku miasta, na Kanale Gliwickim</td></tr>
+        <tr><td>C50180040</td><td> Gliwice Łabędy - w środku miasta, na Kłodnicy </td></tr>
+        <tr><td>C50180030</td><td> Ujazd Most - kanał Gliwicki niżej, chyba trochę już rozcieńczony</td></tr>
+        <tr><td>C50180050</td><td> Lenartowice  - Kłodnica niżej</td></tr>
+        <tr><td>C50170060</td><td> Koźle - Odra po wpadnieciu Kłodnicy </td></tr>
+        <tr><td>C50180100</td><td> Port Koźle - Kanał Gliwicki przed wpuszczeniem do Odry (w której już jest Kłodnica)</td></tr>
+        <tr><td>C50180080</td><td> Stocznia Januszkowice - Odra z Kłodnicą i świeżo wpuszczonym Kanałem Gliwickim </td></tr>
+        <tr><td>C50170010</td><td> Odra rozcieńczona Osobłogą spływającą z Sudetów</td></tr>
+    </table>
+    <p></p>
+    <img src="analizowane_stacje.png" alt="">
+    <h4>Rozpiętość czasowa i niedostepność mętności (turbidity)</h4>
+    <ul>
+        <li>
+            Dla ledwie dwóch stacji - Krapkowic (Odra z Osłobogą) i na tamie na zbiorniku Racibórz Dolny dostępne były dane całoroczne - od września 2023. Dla pozostałych stacji dane dostępne są od wiosny 2024. 
+        </li>
+        <li>
+            Odczyty mętności pojawiają się dopiero w lecie 2024, od różnych dat, zależnie od stacji (<b>były stopniowo montowane czujniki mętności w lecie 2024?</b>)
+        </li>
+        <li>
+            Pełne zbiory danych wraz z mętnością (dla uczenia maszynowego nie może być brakujących wartości w wierszach) liczą zaledwie około 2000 punktów - za mało dla ML.
+        </li>
+        <li>
+            Gdy nie bierzemy pod uwagę mętności, uzyskujemy tabele dwa razy większe - po 4000 punktów pomiarowych (teoretycznie co godzinę) dla większości stacji (tych "półrocznych") i po około 8000 punktów dla dwóch stacji mających dane z całego ostatniego roku.
+        </li>
+    </ul>
+    <h4>W związku z tym przyjęta struktura zbiorów danych (tabel z pomiarami) to:</h4>
+    <table border="1">
+        <tr><th></th><th></td><th>nazwa kolumny</td><th>jednostka</td></tr>
+        <tr><td>1.</td><td>temp</td><td>temperatura wody</td><td>℃</td></tr>
+        <tr><td>2.</td><td>dissolved_oxygen</td><td>tlen rozpuszczony</td><td>mg/l</td></tr>
+        <tr><td>3.</td><td>ph</td><td>ph</td><td>(chemiczne ph)</td></tr>
+        <tr><td>4.</td><td>conductivity</td><td>przewodność</td><td>μS/cm</td></tr>
+        
+    </table>
+    <a href="./C50180100.csv">przykład zbioru danych</a>
+    <h3>Wizualizacja zbiorów</h3>
+    <h4>Przydatny okazuje się wykres wszystkich punktów z jednej stacji (jednocześnie, z całego półrocza/roku):</h4>
+    <table border="1">
+        <tr><td>temperatura wody</td><td>oś X</td></tr>
+        <tr><td>tlen rozpuszczony</td><td>oś Y</td></tr>
+        <tr><td>ph</td><td>kolor punktu: zielony(7) ↔ niebieski(11)</td></tr>
+        <tr><td>przewodność</td><td>kolor punktu: kolor ph ↔ biały</td></tr>
+    </table>
+    <p></p>
+    <!-- <a href="./wykresy_stacji/C49180020.png"><img src="./wykresy_stacji/C49180020.png" alt ="Łaziska" width="100%"></a>
+    <a href="./wykresy_stacji/C49180010.png"><img src="./wykresy_stacji/C49180010.png" alt ="Chałupki" width="100%"></a>
+    <a href="./wykresy_stacji/C50180090.png"><img src="./wykresy_stacji/C50180090.png" alt ="tama na zbiorniku Racibórz Dolny" width="100%"></a>
+    <a href="./wykresy_stacji/C50180070.png"><img src="./wykresy_stacji/C50180070.png" alt ="Turze (rz. Ruda)" width="100%"></a>
+    <a href="./wykresy_stacji/C50180010.png"><img src="./wykresy_stacji/C50180010.png" alt ="Grabówka (rz. Bierawka)" width="100%"></a>
+    <a href="./wykresy_stacji/C50180020.png"><img src="./wykresy_stacji/C50180020.png" alt ="Gliwice Marina (kanał)" width="100%"></a>
+    <a href="./wykresy_stacji/C50180040.png"><img src="./wykresy_stacji/C50180040.png" alt ="Gliwice Łabędy" width="100%"></a>
+    <a href="./wykresy_stacji/C50180030.png"><img src="./wykresy_stacji/C50180030.png" alt ="Ujazd Most (kanał Gliwicki)" width="100%"></a>
+    <a href="./wykresy_stacji/C50180050.png"><img src="./wykresy_stacji/C50180050.png" alt ="Lenartowice (Kłodnica)" width="100%"></a>
+    <a href="./wykresy_stacji/C50170060.png"><img src="./wykresy_stacji/C50170060.png" alt ="Koźle (Odra)" width="100%"></a>
+    <a href="./wykresy_stacji/C50180100.png"><img src="./wykresy_stacji/C50180100.png" alt ="Port Koźle - kanał" width="100%"></a>
+    <a href="./wykresy_stacji/C50180080.png"><img src="./wykresy_stacji/C50180080.png" alt ="Stocznia Januszkowice" width="100%"></a>
+    <a href="./wykresy_stacji/C50170010.png"><img src="./wykresy_stacji/C50170010.png" alt ="Odra z Osłobogą" width="100%"></a> -->
+
+    <h3>Widoczne dla laików zależności w tych zbiorach:</h3>
+    <ul>
+        <li>
+            natlenienia od temperatury: h&prop;-T : z powodu ograniczonej rozpuszczalności tlenu w wodzie. otosynteza "wynosi" na ponad 100% nasycenie roztworu tlenem.
+        </li>
+        <img src="./zaleznosci/hT.png" alt="">
+        <li>
+            Fotosynteza zdaje się "rozpędzać w lecie" przy spadku ph (spływające do wód nawozy?)
+        </li>
+        <img src="./zaleznosci/ph_fotosynteza.png" alt="">
+        <li>
+            Zbiory danych są bardzo różne, a mocno zasolony kanał w środowisku antropogenicznym zupełnie nie przypomina zdrowej rzeki
+        </li>
+        <img src="./wykresy_stacji/C50180020.png" alt="" width="800px">
+    </ul>
+
+    <h2>Model uczenia maszynowego - prosty perceptron wielowarstwowy</h2>
+    <ul>
+        <li>Wejścia: dla każdej z 4 cech wartość [48, 36, 24, 16, 12, 6, 3, 2, 1, 0] godzin wcześniej.</li>
+        <li>Dwie warstwy ukryte - po 21 i 16 neuronów</li>
+        <li>Pojedynczy neuron wyjściowy, którego pobudzenie jest przewidywaną przez sieć wartoscią dla jednej z czterech cech <b>na 24 godziny do przodu</b></li>
+        <img src="architektura_perceptronu.png" alt="">
+    </ul>
+    <p>Jest to najprostszy typ głebokiej sieci neuronowej - chcieliśmy sprawdzić, jak zachowa sie nieskomplikowany model.</p>
+    <p>Wedle aktaulnego stanu wiedzyw dziedzinie, do predykcji szeregów czasowych najlepiej nadają się <b>rekurencyjne sieci neuronowe z komórkami LSTM lub GRU</b>. Będą one <b>następnym badanym modelem</b> i porównamy ich wydajność w porównaniu z bazowym podejściem w postacji perceptronu wielowarstwowego.</p>
+    <h3>Przykładowe predykcje</h3>
+    <img src="./wykresy_predykcji/tlen+24_-punktowy.png" alt="">
+    <p>Nie powinno się łączyć punktów na wykresie... ale mało widać (zresztą perceptron i tak „uznaje” to zapewne za układ dynamiczny z funkcjami ciagłymi)</p>
+    <img src="./wykresy_predykcji/tlen+24_-liniowy.png" alt="">
+    ze dwa wyniki predykcji
+    <p><b>Wniosek:</b> model uczy się dynamiki temperatury i natlenienia, ma problem z ph i przewodnością.</p>
+    <p>Dlaczego? (przypuszczenia laików)</p>
+    <ul>
+        <li>Temperatura wody i nasłonecznienie wydają się być częścią układu podlegającego <b>naturalnej</b> dynamice i którego parametry (prawie) wejściowe mierzyny
+            <img src="./temp_a_natlenienie-wyobrazenie.svg" width="400px">
+            <ul>
+                <li>"Rządzić" wydaje się dobowy cykl nasłonecznienia (skorelowany z temp. wody) i "żyzność" wody (skorelowana z ph)</li>
+            </ul>
+        </li>
+        <li>Z kolei Przewodność (zasolenie), zwłaszcza w środowisku antropogenicznym nie wydaje się być skorelowana z niczym i często wynikać z jednostkowych, ludzkich zachowań (fundamentalnie nieprzewidywalnych)
+            <img src="" alt="">
+            Zrzuty ścieków na Kanale Gliwickim - jakich prawidłowości sie tu doszukiwać?
+        </li>
+        
+    </ul>
+    <p>
+        Pomysł: Nawozy inne biogeny spływją do wód po deszczach ➛ dodanie danych metoerologicznych o dziennym opadzie może pomóc przy ph. Zasolenie też może po części zależeć od opadów pewien czas wcześniej.</p>
+    <p>
+        Nasłonecznienie napędza fotosyntezę - temperatura gruntu, mającego mniejszą bezwładnosć cieplną moze poprawić predykcje natlenienia.
+    </p>
+    Zastanawiamy się nad dodaniem dwóch kolumn do danych wejściowych.
+    <table border="1">
+        <tr><th></th><th></td><th>nazwa kolumny</td><th>jednostka</td></tr>
+        <tr><td>1.</td><td>temp</td><td>temperatura wody</td><td>℃</td></tr>
+        <tr><td>2.</td><td>dissolved_oxygen</td><td>tlen rozpuszczony</td><td>mg/l</td></tr>
+        <tr><td>3.</td><td>ph</td><td>ph</td><td>(chemiczne ph)</td></tr>
+        <tr><td>4.</td><td>conductivity</td><td>przewodność</td><td>μS/cm</td></tr>
+        
+        <tr style="color: green;"><td>5.?</td><td>ground_temp</td><td>temperatura gruntu</td><td>℃</td></tr>
+        <tr style="color: green;"><td>6.?</td><td>precipitation</td><td>opad godzinowy</td><td>mm</td></tr>
+        </font>
+    </table>
+    <h3>Pytania:</h3>
+        <ol>
+            <font color="purple">
+            <li>Jaki charakter ma zależność zasolenia i ph od opadów?
+                <ul>
+                    <li>Czy patrzeć na więcej niż dwa dni do tyłu? (bo wody podziemne)</li>
+                    <li>Brać opad godzinowy z tego miejsca, czy z całego, szerszego obszaru, czy z miejsca pomiaru, czy w górę rzeki (ile?)</li>
+                </ul>
+            </li>
+            </font>
+            <li>Czy temp. gruntu z danych meteo będzie lepiej skorelowana z dopływem energii słonecznej do wód niz sama temp. wody?</li>
+            <font color="purple">
+            <li>Skąd się biorą sole w rzece? (Oprócz ścieków i podłoża geologicznego)</li>
+            <li>Co wiemy o dynamice/okresowości zrzutów ścieków do rzek?
+                <ul>
+                    <font color="black">
+                    <li>Zaobserwowaliśmy czasem okresowość dobową, ale tylko przez pewien czas.</li>
+                    </font>
+                    <li>Czy występuje zależność od opadów?</li>
+                    <li>Jakaś inny mierzalna wartość skorelowana ze zrzutami zanieczyszczeń (zwiększająca ich prawdopodobieństwo)?</li>
+                    <font color="black">
+                    <li>Jeśli zrzuty są <i>arbitralnie antropogeniczne,</i> to idealny model AI nauczyłby się "zgadywać" co zrobi operator w zakładzie przemysłowym/kopalni.</li>
+                    </font>
+                </ul>
+            </li>
+            </font>
+        </ol>
+        <h3>Defekty danych</h3>
+        <ul>
+            <li>...serie są za krótkie (lepsze byłyby wieloletnie dla danej stacji)
+                <ul>
+                    <li>Lecz może to jest w rzeczywistości wada, bo po zainstalowaniu nowej stacji i tak trzeba będzie czekać co najmniej pół roku na predykcje (więc może niepotrzebne nam dłuższe)</li>
+                </ul>
+            </li>
+            <li>Rozkalibrowanie - gwałtowne skoki i zmiany poziomów (które czasem trudno odróżnić od rzeczywistych, gwałtownych zdarzeń)
+                <ul>
+                    <li>Model się takich defektów pilnie uczy i odtwarza...</li>
+                    <li>Nie powinniśmy próbować usuwać ich z danych uczących, bo nie zagwarantujemy, że któregoś dnia komuś znowu nie przesunie sie sonda.</li>
+                </ul>
+            </li>
+            <li>Zaokrąglanie do dziesiątej/setnej części (+ problemy z łącznością?)
+                <ul>
+                    <li>
+                        "Schodki" wykresach
+                        <img src="schodki" alt="">
+                    </li>
+                    <li>"Kratka" w chmurze punktów
+                        <img src="kratka" alt="kratka">
+                    </li>
+                    <li>Średnia krocząca?</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Do zajmujacych się istniejącymi stacjami pomiarowymi:
+            <ul>
+                <li>Pytanie o skokowe zmiany (ph) - rozkalibrowanie czy inna przyczyna?</li>
+                <li>Nie zaokrąglać, nie stosować średnich kroczących - utrata potencjalnie cennej informacji, te operacje przeprowadzić może każdy odbiorca danych potem, na własną rękę.</li>
+                <li style="color: gray;">Nie zmniejszać częstotliwości pomiaru - przy odstępach godzinnych, gwałtowne zmiany i tak reprezentowane są często przez pojedynczy punkt.</li>
+            </ul>
+            Wnioski dla nowopowstających urządzeń - ?
+        </p>
+    
+</section>
+    
+</body>
+</html>
