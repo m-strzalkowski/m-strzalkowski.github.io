@@ -98,11 +98,11 @@
     <h3>Widoczne dla laików zależności w tych zbiorach:</h3>
     <ul>
         <li>
-            natlenienia od temperatury: h&prop;-T : z powodu ograniczonej rozpuszczalności tlenu w wodzie. otosynteza "wynosi" na ponad 100% nasycenie roztworu tlenem.
+            natlenienia od temperatury: h&prop;-T : z powodu ograniczonej rozpuszczalności tlenu w wodzie. Fotosynteza "wynosi" na ponad 100% nasycenie roztworu tlenem.
         </li>
         <img src="./zaleznosci/hT.png" alt="">
         <li>
-            Fotosynteza zdaje się "rozpędzać w lecie" przy spadku ph (spływające do wód nawozy?)
+            Fotosynteza zdaje się "rozpędzać" w lecie przy spadku ph (spływające do wód nawozy?)
         </li>
         <img src="./zaleznosci/ph_fotosynteza.png" alt="">
         <li>
@@ -119,7 +119,7 @@
         <img src="architektura_perceptronu.png" alt="">
     </ul>
     <p>Jest to najprostszy typ głebokiej sieci neuronowej - chcieliśmy sprawdzić, jak zachowa sie nieskomplikowany model.</p>
-    <p>Wedle aktaulnego stanu wiedzyw dziedzinie, do predykcji szeregów czasowych najlepiej nadają się <b>rekurencyjne sieci neuronowe z komórkami LSTM lub GRU</b>. Będą one <b>następnym badanym modelem</b> i porównamy ich wydajność w porównaniu z bazowym podejściem w postacji perceptronu wielowarstwowego.</p>
+    <p>Wedle aktaulnego stanu wiedzyw dziedzinie, do predykcji szeregów czasowych najlepiej nadają się <b>rekurencyjne sieci neuronowe z komórkami LSTM lub GRU</b>. Będą one <b>następnym badanym modelem</b> i porównamy ich wydajność w porównaniu z bazowym podejściem w postaci perceptronu wielowarstwowego.</p>
     <h3>Przykładowe predykcje</h3>
     <img src="./wykresy_predykcji/tlen+24_-punktowy.png" alt="">
     <p>Nie powinno się łączyć punktów na wykresie... ale mało widać (zresztą perceptron i tak „uznaje” to zapewne za układ dynamiczny z funkcjami ciagłymi)</p>
@@ -148,16 +148,16 @@
                 <li>"Rządzić" wydaje się dobowy cykl nasłonecznienia (skorelowany z temp. wody) i "żyzność" wody (skorelowana z ph)</li>
             </ul>
         
-        <li>Z kolei Przewodność (zasolenie), zwłaszcza w środowisku antropogenicznym nie wydaje się być skorelowana z niczym i często wynikać z jednostkowych, ludzkich zachowań (fundamentalnie nieprzewidywalnych)
+        <li>Z kolei Przewodność (zasolenie), zwłaszcza w środowisku antropogenicznym nie wydaje się być skorelowana z niczym i może często wynikać z jednostkowych, ludzkich zachowań (fundamentalnie nieprzewidywalnych)
             <img src="" alt="">
-            Zrzuty ścieków na Kanale Gliwickim - jakich prawidłowości sie tu doszukiwać?
+            Zrzuty ścieków na Kanale Gliwickim - jakich prawidłowości się tu doszukiwać?
         </li>
         
     </ul>
     <p>
         Pomysł: Nawozy i inne biogeny spływją do wód po deszczach ➛ dodanie danych metoerologicznych o dziennym opadzie może pomóc przy ph. Zasolenie też może po części zależeć od opadów pewien czas wcześniej.</p>
     <p>
-        Nasłonecznienie napędza fotosyntezę - temperatura gruntu, mającego mniejszą bezwładnosć cieplną moze poprawić predykcje natlenienia.
+        Nasłonecznienie napędza fotosyntezę - temperatura gruntu, mającego mniejszą bezwładnosć cieplną może poprawić predykcje natlenienia.
     </p>
     Zastanawiamy się nad dodaniem dwóch kolumn do danych wejściowych.
     <table border="1">
@@ -177,11 +177,11 @@
             <li>Jaki charakter ma zależność zasolenia i ph od opadów?
                 <ul>
                     <li>Czy patrzeć na więcej niż dwa dni do tyłu? (bo wody podziemne)</li>
-                    <li>Brać opad godzinowy z tego miejsca, czy z całego, szerszego obszaru, czy z miejsca pomiaru, czy w górę rzeki (ile?)</li>
+                    <li>Brać opad godzinowy z tego miejsca, czy z całego, szerszego obszaru; z miejsca pomiaru, czy w górę rzeki (ile?)</li>
                 </ul>
             </li>
             </font>
-            <li>Czy temp. gruntu z danych meteo będzie lepiej skorelowana z dopływem energii słonecznej do wód niz sama temp. wody?</li>
+            <li>Czy temp. gruntu z danych meteo będzie lepiej skorelowana z dopływem energii słonecznej do wód niż sama temp. wody?</li>
             <font color="purple">
             <li>Skąd się biorą sole w rzece? (Oprócz ścieków i podłoża geologicznego)</li>
             <li>Co wiemy o dynamice/okresowości zrzutów ścieków do rzek?
@@ -202,7 +202,7 @@
         <ul>
             <li>...serie są za krótkie (lepsze byłyby wieloletnie dla danej stacji)
                 <ul>
-                    <li>Lecz może to jest w rzeczywistości wada, bo po zainstalowaniu nowej stacji i tak trzeba będzie czekać co najmniej pół roku na predykcje (więc może niepotrzebne nam dłuższe)</li>
+                    <li>Lecz może to w rzeczywistości zaleta, bo po zainstalowaniu nowej stacji i tak trzeba będzie czekać co najmniej pół roku na predykcje (więc może niepotrzebne nam dłuższe serie)</li>
                 </ul>
             </li>
             <li>Rozkalibrowanie - gwałtowne skoki i zmiany poziomów (które czasem trudno odróżnić od rzeczywistych, gwałtownych zdarzeń)
@@ -244,7 +244,7 @@
         </ul>
         <p>Do zajmujacych się istniejącymi stacjami pomiarowymi:
             <ul>
-                <li>Pytanie o skokowe zmiany (ph) - rozkalibrowanie czy inna przyczyna?</li>
+                <li>Pytanie o skokowe zmiany i inne artefakty (zwykle ph, przewodność) - rozkalibrowanie czy inna przyczyna?</li>
                 <li>Nie zaokrąglać, nie stosować średnich kroczących - utrata potencjalnie cennej informacji, te operacje przeprowadzić może każdy odbiorca danych potem, na własną rękę.
                     <ul>
                         <li>Model uczony na danych niezaokrąglonych nie działa na danych zaokrąglonych prawdopodobnie dlatego, że oczekuje precyzyjnie skierowanego wektora, bierze pod uwage "kształt" ciągu ostatnich punktów pomiarowych - wypłaszczenie go myli.
