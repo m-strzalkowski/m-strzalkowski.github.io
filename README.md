@@ -1,2 +1,2 @@
 # m-strzalkowski.github.io
-To tylko strona
+To tylko strona.
