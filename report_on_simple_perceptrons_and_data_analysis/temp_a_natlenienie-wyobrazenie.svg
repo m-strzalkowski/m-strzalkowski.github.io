@@ -9,37 +9,30 @@
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-348 347.9709,-348 347.9709,4 -4,4"/>
 <text text-anchor="middle" x="171.9855" y="-327.4" font-family="Times,serif" font-size="14.00" fill="#000000">temp.wody ↔ natlenienie</text>
 <text text-anchor="middle" x="171.9855" y="-310.6" font-family="Times,serif" font-size="14.00" fill="#000000"> (wyobrażenie powiązań)</text>
-<!-- nasłonecznienie -->
-<g id="node1" class="node">
-<title>nasłonecznienie</title>
-<ellipse fill="none" stroke="#000000" cx="113.4035" cy="-284.4" rx="75.8026" ry="18"/>
-<text text-anchor="middle" x="113.4035" y="-280.2" font-family="Times,serif" font-size="14.00" fill="#000000">nasłonecznienie</text>
-</g>
 <!-- temp. wody -->
-<g id="node2" class="node">
+<g id="node1" class="node">
 <title>temp. wody</title>
 <ellipse fill="none" stroke="#000000" cx="66.4035" cy="-195.6" rx="56.7658" ry="18"/>
-<text text-anchor="middle" x="66.4035" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">temp. wody</text>
+<text text-anchor="start" x="33.3523" y="-192.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#000000">temp. wody</text>
 </g>
-<!-- nasłonecznienie&#45;&gt;temp. wody -->
-<g id="edge1" class="edge">
-<title>nasłonecznienie-&gt;temp. wody</title>
-<path fill="none" stroke="#000000" d="M102.3109,-266.246C98.9535,-260.5833 95.32,-254.2801 92.1573,-248.4 87.782,-240.2656 83.2793,-231.2787 79.2869,-223.0605"/>
-<polygon fill="#000000" stroke="#000000" points="82.3551,-221.3643 74.8728,-213.8633 76.0443,-224.3932 82.3551,-221.3643"/>
-<text text-anchor="middle" x="119.0266" y="-235.8" font-family="Times,serif" font-size="14.00" fill="#000000">zwiększa</text>
+<!-- natlenienie -->
+<g id="node2" class="node">
+<title>natlenienie</title>
+<ellipse fill="none" stroke="#000000" cx="53.4035" cy="-18" rx="53.3071" ry="18"/>
+<text text-anchor="start" x="22.6931" y="-14.8" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#000000">natlenienie</text>
+</g>
+<!-- temp. wody&#45;&gt;natlenienie -->
+<g id="edge6" class="edge">
+<title>temp. wody-&gt;natlenienie</title>
+<path fill="none" stroke="#000000" d="M59.683,-177.5697C54.7914,-163.4408 48.5883,-143.1663 45.9939,-124.8 42.2576,-98.3507 45.0518,-67.9384 48.2215,-46.3489"/>
+<polygon fill="#000000" stroke="#000000" points="51.7176,-46.6488 49.8305,-36.2234 44.8044,-45.5502 51.7176,-46.6488"/>
+<text text-anchor="middle" x="73.6083" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">ogranicza</text>
 </g>
 <!-- fotosynteza -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>fotosynteza</title>
 <ellipse fill="none" stroke="#000000" cx="165.4035" cy="-106.8" rx="55.5966" ry="18"/>
 <text text-anchor="middle" x="165.4035" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">fotosynteza</text>
-</g>
-<!-- nasłonecznienie&#45;&gt;fotosynteza -->
-<g id="edge2" class="edge">
-<title>nasłonecznienie-&gt;fotosynteza</title>
-<path fill="none" stroke="#000000" d="M132.6659,-266.8653C137.5654,-261.419 142.3126,-255.0781 145.4035,-248.4 162.307,-211.8786 165.8229,-164.8367 166.1278,-135.2391"/>
-<polygon fill="#000000" stroke="#000000" points="169.6278,-135.1708 166.1137,-125.1757 162.6278,-135.1806 169.6278,-135.1708"/>
-<text text-anchor="middle" x="188.3057" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">napędza</text>
 </g>
 <!-- temp. wody&#45;&gt;fotosynteza -->
 <g id="edge3" class="edge">
@@ -48,18 +41,25 @@
 <polygon fill="#000000" stroke="#000000" points="115.4441,-126.0846 123.1096,-118.7707 112.5563,-119.708 115.4441,-126.0846"/>
 <text text-anchor="middle" x="116.1339" y="-147" font-family="Times,serif" font-size="14.00" fill="#000000">zwiększa?</text>
 </g>
-<!-- natlenienie -->
-<g id="node4" class="node">
-<title>natlenienie</title>
-<ellipse fill="none" stroke="#000000" cx="53.4035" cy="-18" rx="53.3071" ry="18"/>
-<text text-anchor="middle" x="53.4035" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">natlenienie</text>
+<!-- nasłonecznienie -->
+<g id="node3" class="node">
+<title>nasłonecznienie</title>
+<ellipse fill="none" stroke="#000000" cx="113.4035" cy="-284.4" rx="75.8026" ry="18"/>
+<text text-anchor="middle" x="113.4035" y="-280.2" font-family="Times,serif" font-size="14.00" fill="#000000">nasłonecznienie</text>
 </g>
-<!-- temp. wody&#45;&gt;natlenienie -->
-<g id="edge6" class="edge">
-<title>temp. wody-&gt;natlenienie</title>
-<path fill="none" stroke="#000000" d="M59.683,-177.5697C54.7914,-163.4408 48.5883,-143.1663 45.9939,-124.8 42.2576,-98.3507 45.0518,-67.9384 48.2215,-46.3489"/>
-<polygon fill="#000000" stroke="#000000" points="51.7176,-46.6488 49.8305,-36.2234 44.8044,-45.5502 51.7176,-46.6488"/>
-<text text-anchor="middle" x="73.6083" y="-102.6" font-family="Times,serif" font-size="14.00" fill="#000000">ogranicza</text>
+<!-- nasłonecznienie&#45;&gt;temp. wody -->
+<g id="edge1" class="edge">
+<title>nasłonecznienie-&gt;temp. wody</title>
+<path fill="none" stroke="#000000" d="M102.3109,-266.246C98.9535,-260.5833 95.32,-254.2801 92.1573,-248.4 87.782,-240.2656 83.2793,-231.2787 79.2869,-223.0605"/>
+<polygon fill="#000000" stroke="#000000" points="82.3551,-221.3643 74.8728,-213.8633 76.0443,-224.3932 82.3551,-221.3643"/>
+<text text-anchor="middle" x="119.0266" y="-235.8" font-family="Times,serif" font-size="14.00" fill="#000000">zwiększa</text>
+</g>
+<!-- nasłonecznienie&#45;&gt;fotosynteza -->
+<g id="edge2" class="edge">
+<title>nasłonecznienie-&gt;fotosynteza</title>
+<path fill="none" stroke="#000000" d="M132.6659,-266.8653C137.5654,-261.419 142.3126,-255.0781 145.4035,-248.4 162.307,-211.8786 165.8229,-164.8367 166.1278,-135.2391"/>
+<polygon fill="#000000" stroke="#000000" points="169.6278,-135.1708 166.1137,-125.1757 162.6278,-135.1806 169.6278,-135.1708"/>
+<text text-anchor="middle" x="188.3057" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">napędza</text>
 </g>
 <!-- fotosynteza&#45;&gt;natlenienie -->
 <g id="edge4" class="edge">
@@ -72,7 +72,9 @@
 <g id="node5" class="node">
 <title>nawozy (ph)</title>
 <ellipse fill="none" stroke="#000000" cx="284.4035" cy="-195.6" rx="59.635" ry="18"/>
-<text text-anchor="middle" x="284.4035" y="-191.4" font-family="Times,serif" font-size="14.00" fill="#000000">nawozy (ph)</text>
+<text text-anchor="start" x="249.225" y="-192.4" font-family="Times,serif" font-size="14.00" fill="#000000">nawozy (</text>
+<text text-anchor="start" x="300.9214" y="-192.4" font-family="Times,serif" text-decoration="underline" font-size="14.00" fill="#000000">ph</text>
+<text text-anchor="start" x="314.9214" y="-192.4" font-family="Times,serif" font-size="14.00" fill="#000000">)</text>
 </g>
 <!-- nawozy (ph)&#45;&gt;fotosynteza -->
 <g id="edge5" class="edge">

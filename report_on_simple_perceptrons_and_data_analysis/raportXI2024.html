@@ -13,6 +13,13 @@
             padding-left: 2em;
         }
         td {padding: 0.25em;}
+        @media print
+        {    
+            .no-print, .no-print *
+            {
+                display: none !important;
+            }
+        }
       </style>
 </head>
 <body>
@@ -85,7 +92,8 @@
     <a href="./wykresy_stacji/C50180100.png"><img src="./wykresy_stacji/C50180100.png" alt ="Port Koźle - kanał" width="100%"></a>
     <a href="./wykresy_stacji/C50180080.png"><img src="./wykresy_stacji/C50180080.png" alt ="Stocznia Januszkowice" width="100%"></a>
     <a href="./wykresy_stacji/C50170010.png"><img src="./wykresy_stacji/C50170010.png" alt ="Odra z Osłobogą" width="100%"></a>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/LnFOaHF_8Xk?si=YUw9dm5sDiSuFRlu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <!--560x315-->
+    <iframe class="no-print" width="1100" height="618" src="https://www.youtube.com/embed/LnFOaHF_8Xk?si=YUw9dm5sDiSuFRlu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
     <h3>Widoczne dla laików zależności w tych zbiorach:</h3>
     <ul>
@@ -116,7 +124,21 @@
     <img src="./wykresy_predykcji/tlen+24_-punktowy.png" alt="">
     <p>Nie powinno się łączyć punktów na wykresie... ale mało widać (zresztą perceptron i tak „uznaje” to zapewne za układ dynamiczny z funkcjami ciagłymi)</p>
     <img src="./wykresy_predykcji/tlen+24_-liniowy.png" alt="">
-    ze dwa wyniki predykcji
+    <p>Sieć dobrze wychwutuje cykle dobowe...</p>
+    <img src="wykresy_predykcji/kozle_tlen.png" alt="">
+    <p>...ale miewa problem z uogólnianiem (może ze względu na defekty danych od jesieni 2024)</p>
+    <img src="wykresy_predykcji/st_januszkowice_niewiele_wart_testowy_ph.png" alt="">
+    <p>Działająca predykcja dla niewielkiego zasolenia o naturalnej genezie (Krapkowice)</p>
+    <img src="wykresy_predykcji/zasolenie/zasolenie_naturalne_krapkowice_uczacy.png" alt="">
+    <img src="wykresy_predykcji/zasolenie/zasolenie_naturalne_krapkowice_testowy.png" alt="">
+    <p>Niedziałająca predykcja dla ogromnego zasolenia z wód kopalnianych/ścieków przemysłowych. (Gliwice)</p>
+    <img src="wykresy_predykcji/zasolenie/zasolenie_gliwice_uczacy.png" alt="">
+    <p>Na zbiorze testowym widać, że perceptron nie nauczył się - nie potrafi uogólniać poza zbiór uczący.</p>
+    <img src="wykresy_predykcji/zasolenie/zasolenie_gliwice_testowy-nie_nauczyl_sie.png" alt="">
+    <p>Występują w Gliwicach czasem regularności dobowe przewodności (może ze wględu na pracę zakładów przemysłowych), jednak pojawiają się i znikają bez widocznej prawidłowości.</p>
+    <img src="wykresy_predykcji/zasolenie/zasolenie_gliwice_regularonsci_dobowe.png" alt="">
+    <p>Też w Gliwicach, ale na Kłodnicy - wygląda jak wielki zrzut, którego nie dało sie przewidzieć.</p>
+    <img src="wykresy_predykcji/zasolenie/nieprzewidywalny_zrzut_Klodnica.png" alt="">
     <p><b>Wniosek:</b> model uczy się dynamiki temperatury i natlenienia, ma problem z ph i przewodnością.</p>
     <p>Dlaczego? (przypuszczenia laików)</p>
     <ul>
@@ -184,8 +206,24 @@
                 </ul>
             </li>
             <li>Rozkalibrowanie - gwałtowne skoki i zmiany poziomów (które czasem trudno odróżnić od rzeczywistych, gwałtownych zdarzeń)
+                <img src="./defekty/gotowanie_zaby.png" alt="">
+                <small>Z pewnością temperatura wody wynosiła dokładnie 85.0 stopni...</small>
+                <p></p>
+                <img src="./defekty/defekty_przeszkadzaja_w_uczeniu.png" alt="">
+                <small>Ma to negatywny wpływ na model</small>
+                <p></p>
+                <img src="./defekty/rozkalibrowanie_ph_1.png" alt="">
+                <small>Skokowe skwaśnienie wody, czy defekt przyrządu?</small>
+                <p></p>
+                <img src="defekty/rozkalibrowanie_ph_1+pred.png" alt="">
+                <img src="defekty/skok_ph.png" alt="">
+                <small>Nagły skok...</small>
+                <p></p>
+                <img src="defekty/skok_ph_oddalony.png" alt="">
+                <small>oraz zbiór w całej okazałości (jaka substancja mogłaby mieć ph 16?)</small>
+                <p></p>
                 <ul>
-                    <li>Model się takich defektów pilnie uczy i odtwarza...</li>
+                    <li>Model próbuje się takich defektów pilnie uczyć i czasem odtwarza...</li>
                     <li>Nie powinniśmy próbować usuwać ich z danych uczących, bo nie zagwarantujemy, że któregoś dnia komuś znowu nie przesunie sie sonda.</li>
                 </ul>
             </li>
@@ -193,10 +231,12 @@
                 <ul>
                     <li>
                         "Schodki" wykresach
-                        <img src="schodki" alt="">
+                        <img src="defekty/schodki1.png" alt="">
+                        <img src="defekty/schodki2.png" alt="">
                     </li>
                     <li>"Kratka" w chmurze punktów
-                        <img src="kratka" alt="kratka">
+                        <img src="defekty/kratka1.png" alt="kratka">
+                        <img src="defekty/kratka2.png" alt="kratka">
                     </li>
                     <li>Średnia krocząca?</li>
                 </ul>
@@ -205,8 +245,14 @@
         <p>Do zajmujacych się istniejącymi stacjami pomiarowymi:
             <ul>
                 <li>Pytanie o skokowe zmiany (ph) - rozkalibrowanie czy inna przyczyna?</li>
-                <li>Nie zaokrąglać, nie stosować średnich kroczących - utrata potencjalnie cennej informacji, te operacje przeprowadzić może każdy odbiorca danych potem, na własną rękę.</li>
-                <li style="color: gray;">Nie zmniejszać częstotliwości pomiaru - przy odstępach godzinnych, gwałtowne zmiany i tak reprezentowane są często przez pojedynczy punkt.</li>
+                <li>Nie zaokrąglać, nie stosować średnich kroczących - utrata potencjalnie cennej informacji, te operacje przeprowadzić może każdy odbiorca danych potem, na własną rękę.
+                    <ul>
+                        <li>Model uczony na danych niezaokrąglonych nie działa na danych zaokrąglonych prawdopodobnie dlatego, że oczekuje precyzyjnie skierowanego wektora, bierze pod uwage "kształt" ciągu ostatnich punktów pomiarowych - wypłaszczenie go myli.
+                        </li>
+                        <li>Możemy zaokrąglać do dziesiątej części całe zbiory, ale oznacza to utratę wielkiej ilości informacji</li>
+                    </ul>
+                </li>
+                <li style="color: gray;">Nie zmniejszać częstotliwości pomiaru - przy odstępach godzinnych gwałtowne zmiany i tak reprezentowane są często przez pojedynczy punkt.</li>
             </ul>
             Wnioski dla powstających urządzeń - ?
         </p>

@@ -1,0 +1,13 @@
+digraph G {
+label = "temp.wody ↔ natlenienie\n (wyobrażenie powiązań)"; labelloc="t"
+"temp. wody"[label=<<u>temp. wody</u>>]
+"natlenienie"[label=<<u>natlenienie</u>>]
+
+"nasłonecznienie" -> "temp. wody"[label="zwiększa"];
+"nasłonecznienie" -> "fotosynteza" [label="napędza"];
+"temp. wody" -> "fotosynteza" [style="dotted", label="zwiększa?"]
+"fotosynteza" -> "natlenienie" [label="zwiększa"]
+"nawozy (ph)" -> "fotosynteza" [label="napędza"]
+"temp. wody" -> "natlenienie" [label="ogranicza"]
+"nawozy (ph)"[label=<nawozy (<u>ph</u>)>]
+}
